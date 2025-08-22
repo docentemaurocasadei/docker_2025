@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+    volumes:
+      - mysql_container:/var/lib/mysql
+    networks:
+      - appnet
+
+  app:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: testdb
+      PROJECT_NAME: mysql_volumes_test
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - appnet
+      
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - appnet
+volumes:
+  mysql_container:
+    external: true   # volume esterno
+
+networks:
+  appnet:
+    driver: bridge

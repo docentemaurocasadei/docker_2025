@@ -1,0 +1,2 @@
+docker build --no-cache -t ssoftware/test_laravel:dev .
+docker run -p 8000:8000 -it --name test_laravel ssoftware/test_laravel:dev sh

@@ -1,0 +1,53 @@
+name: test_docker_compose
+services:
+  db:
+    image: mysql:8
+    container_name: test_docker_compose_mysql_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - test_docker_compose:/var/lib/mysql
+    networks:
+      - ss_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: test_docker_compose_phpmyadmin
+    environment:
+      - PMA_HOST=test_docker_compose_mysql_db
+      - PMA_USER=${DB_USER}
+      - PMA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 8081:80
+    networks:
+      - ss_network
+
+  flask:
+    build:
+      context: ./flask_app
+      dockerfile: Dockerfile
+    container_name: test_docker_compose_flask_app
+    ports:
+      - 5000:5000
+    volumes:
+      - ./flask_app:/app
+    depends_on:
+      - db
+    networks:
+      - ss_network
+    environment:
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    env_file:
+      - .env    
+
+volumes:
+  test_docker_compose:
+    external: true
+networks:
+  ss_network:

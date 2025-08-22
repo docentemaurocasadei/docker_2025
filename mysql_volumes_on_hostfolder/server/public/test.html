@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Login + Profile con JWT</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Username:</label><br>
+    <input type="text" id="username" required><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="password" required><br><br>
+
+    <button type="button" id="loginButton">Login</button>
+  </form>
+
+  <h2>Profile</h2>
+  <button id="getProfile">Get Profile</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    // funzione helper per cookie
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days*24*60*60*1000));
+      const expires = "expires="+ d.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+      const cname = name + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(cname) === 0) {
+          return c.substring(cname.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    // LOGIN
+    document.getElementById("loginButton").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+        console.log(res);
+        if (!res.ok) {
+          document.getElementById("output").textContent = "Login failed";
+          return;
+        }
+
+        const data = await res.json();
+        setCookie("jwt", data.token, 1); // cookie valido 1 giorno
+        document.getElementById("output").textContent = "Login ok! JWT salvato nel cookie.";
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").textContent = "Errore nel login.";
+      }
+    });
+
+    // PROFILE
+    document.getElementById("getProfile").addEventListener("click", async () => {
+      const token = getCookie("jwt");
+      if (!token) {
+        document.getElementById("output").textContent = "Nessun token trovato, fai login prima.";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/profile", {
+          method: "GET",
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          document.getElementById("output").textContent = "Errore: " + res.status;
+          return;
+        }
+
+        const data = await res.json();
+        document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").textContent = "Errore nel recupero profilo.";
+      }
+    });
+  </script>
+</body>
+</html>

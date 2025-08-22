@@ -1,0 +1,11 @@
+utilizza un container esterno
+docker volume create mysql_container
+
+servizio per utilizzare i volumes già creati in docker desktop
+i volumi sono persistenti
+viene creato con docker-compose per evitare di creare rete interna ai container manualmente da parametri Dockerfile
+
+
+db	MySQL 8, con volume esterno mysql_container	3306 (default)
+app	App custom (Flask, Node, ecc.) su porta 3000	http://localhost:3000
+phpmyadmin	Interfaccia web per MySQL	http://localhost:8080
