@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - test_jwt_node_volume:/app/logs
+    restart: unless-stopped
+
+volumes:
+  test_jwt_node_volume:
