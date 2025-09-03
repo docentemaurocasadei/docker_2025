@@ -1,0 +1,23 @@
+progetto che restituisce solo ad utenti loggati un numero random, fatto per testare installazione su un paas
+
+per il package json:
+npm init -y
+npm install express jsonwebtoken body-parser
+
+per deploy su render.com
+Render non supporta docker-compose.yml → puoi fare deploy:
+come Web Service (con Dockerfile), oppure
+come Node runtime senza Docker (più semplice).
+
+noi faremo con docker
+
+Vai su Render
+New + → Web Service
+Collega il tuo account GitHub
+Scegli il repo test-jwt-node
+Environment: Docker
+Lascia Dockerfile come build command (Render capisce da solo)
+Nella sezione Environment Variables aggiungi:
+PORT → 3000 (o puoi anche lasciarlo vuoto, Render la setta in automatico, ma meglio metterlo)
+(eventuale) SECRET_KEY → valore sicuro a tua scelta
+Clicca Create Web Service

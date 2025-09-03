@@ -1,7 +1,13 @@
+per il package json:
 npm init -y
 npm install express jsonwebtoken body-parser
+
+per creare immagine e contaniner con docker compose
 docker-compose up --build
 
+oppure senza docker compose
+docker build -t test_jwt_node_from_dockerfile_img . 
+docker run -it -v test_jwt_node_volume:/app/logs -p 3001:3001 --name test_jwt_node test_jwt_node_from_dockerfile_img        
 
 se porta utilizzata
 netstat -aon | findstr :3001
