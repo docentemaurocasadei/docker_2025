@@ -1,0 +1,23 @@
+name: test_python_api_img
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - ss-network
+    labels:
+      - "author=Mario Rossi"
+      - "project=flask-api"
+    volumes:
+      - ./logs:/app/logs
+      # - python_api_volume:/app/logs <-- alternativa dentro docker data
+
+networks:
+  ss-network:
+#volumes:
+  # python_api_volume: <-- alternativa dentro docker data

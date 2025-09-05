@@ -1,0 +1,19 @@
+Questo script crea una piccola API con Flask che espone quattro rotte:
+
+/ risponde con un messaggio di benvenuto in JSON.
+/api/add riceve due numeri in POST e restituisce la loro somma.
+/api/logs scrive un log con data e ora sulla console.
+/api/log-file salva lo stesso log dentro al file logs/app.log.
+In pratica è un esempio di microservizio con endpoint di test, calcolo e logging.
+
+per creare il container
+docker compose up --build
+
+oppure
+docker build -t test_python_api_img2 .
+docker run -p 5000:5000 --rm --name test_python_api_img_container -v ./logs:/app/logs test_python_api_img2
+
+per vedere la shell
+docker ps
+docker exec -it test_python_api_img_container bash
+cat ./logs/app.log
