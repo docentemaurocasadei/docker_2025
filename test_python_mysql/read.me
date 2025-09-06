@@ -1,0 +1,14 @@
+docker compose up --build
+
+se si volessere riavviare il container manualmente e non con docker compose
+docker build -t test_python_mysql_img3 .
+docker run -e MYSQL_HOST=db -e MYSQL_USER=testuser -e MYSQL_PASSWORD=testpassword -e MYSQL_DATABASE=testdb -p 5001:5000 -v "C:\Software\Docker\test_python_mysql\logs:/app/sslogs" --network test_python_mysql_ss-network -it -d --name test_python_mysql_cont test_python_mysql_img3 
+
+verificare se le porte sono libere
+netstat -aon | findstr :5000
+esempio:
+TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       27656
+  TCP    [::]:5000              [::]:0                 LISTENING       27656
+  TCP    [::1]:5000             [::]:0                 LISTENING       38012
+PS C:\Software\Docker\test_python_mysql> kill 27656
+PS C:\Software\Docker\test_python_mysql> netstat -aon | findstr :5000
