@@ -21,3 +21,9 @@ Molto importante: nel campo Root Directory, inserisci: test_jwt_node_numrnd
 Questo dirà a Render di eseguire build e startup all’interno di quella sottocartella 
 
 Render rileverà automaticamente il Dockerfile e i comandi di build / start. Se vuoi, puoi verificarli o personalizzarli relativi a quella stessa directory.
+
+------------------
+immaginiamo di volerla mettere su docker hub
+docker build -t soluzionesoftware/test_jwt_node_numrnd:1.0 .
+docker push soluzionesoftware/test_jwt_node_numrnd:1.0
+

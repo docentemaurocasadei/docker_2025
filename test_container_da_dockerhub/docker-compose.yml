@@ -1,0 +1,7 @@
+name: soluzionesoftware_test_jwt_node_numrnd
+services:
+  app:
+    image: soluzionesoftware/test_jwt_node_numrnd:1.0
+    container_name: test_jwt_node_numrnd_cont1
+    ports:
+      - "3000:3000"

@@ -1,0 +1,14 @@
+da dockercli
+docker run --name test_jwt_node_numrnd_cont1 -it -p 3000:3000 soluzionesoftware/test_jwt_node_numrnd:1.0
+
+--- Dockerfile??
+possibile anche creare nuovo Dockerfile, ma usarlo se vuoi creare una nuova immagine personalizzata partendo dalla tua (es. per aggiungere altre dipendenze o file)
+⚠️ Ma se l’immagine soluzionesoftware/test_jwt_node_numrnd è già pronta all’uso (e già lancia server.js), non serve creare un nuovo Dockerfile
+
+---docker-compose??
+Quando usarlo:
+Se vuoi gestire l’applicazione insieme ad altri servizi (es. DB, Redis, ecc.)
+Se vuoi replicare facilmente l’ambiente con un solo comando:
+
+docker-compose up -d
+🔁 Ottimo per sviluppo e produzione, con gestione chiara dei container
