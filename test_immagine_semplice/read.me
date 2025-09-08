@@ -1,0 +1,16 @@
+creare immagine di ngnix e mostrare immagine statica
+
+docker run -p 8080:80 -v C:\\Software\\Docker\\test_immagine_semplice\\public:/usr/share/nginx/html -d --name ss_nginx nginx
+
+docker exec -it ss_nginx -l /usr/share/nginx/html
+
+http://localhost:8080/businessman.jpg
+
+oppure
+
+docker compose up -d
+
+per vedere se gira:
+docker compose logs
+docker compose exec -it app bash 
+docker compose down

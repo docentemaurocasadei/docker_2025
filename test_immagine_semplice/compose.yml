@@ -1,0 +1,10 @@
+name: test_immagine_semplice
+
+services:
+  app:
+    image: nginx
+    container_name: ss_nginx
+    ports:
+      - 8080:80	
+    volumes:
+      - C://Software//Docker//test_immagine_semplice//public:/usr/share/nginx/html
