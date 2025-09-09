@@ -1,0 +1,20 @@
+name: test_python_meteo
+
+services:
+  app:
+    container_name: weather_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      OPENWEATHER_KEY: ${OPENWEATHER_KEY}
+      WEATHERAPI_KEY: ${WEATHERAPI_KEY}
+    volumes:
+      - ./logs:/app/logs   # cartella locale "logs" montata su /app/logs nel container
+#volumes:
+#      - logs_data:/app/logs   # volume named, gestito da Docker
+
+
+volumes: {}
