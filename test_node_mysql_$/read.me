@@ -10,3 +10,5 @@ docker build -t ssoftware/test/my_node_mysql_image:latest .
 docker run -d --network ss_netw -p 3308:3306 -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=testnode --name ssoftware_test_my_node_mysql_mysql -v db_data:/var/lib/mysql mysql:8 
 docker run -d --network ss_netw -p 3005:3005 -e DB_HOST=ssoftware_test_my_node_mysql_mysql -e DB_USER=root -e DB_PASSWORD=rootpass -e DB_NAME=testnode --name ssoftware_test_my_node_mysql_node ssoftware/test/my_node_mysql_image:latest 
 
+**** per entrare nel container mysql per fare query:
+docker exec -it ssoftware_test_my_node_mysql_mysql mysql -uroot -prootpass

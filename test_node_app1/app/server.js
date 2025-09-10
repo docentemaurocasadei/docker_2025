@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello World 2!');
+  res.send('Ciao, webservice pubblicato da Mauro!');
 });
 
 app.listen(3000, () => {
