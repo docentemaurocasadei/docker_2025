@@ -1,0 +1,30 @@
+Docker Compose → ottimo per sviluppo o ambienti semplici su un solo server.
+Docker Swarm → stesso file YAML ma con capacità di cluster, scaling distribuito e HA (High Availability, cioè Alta Disponibilità).
+
+
+*** docker swarm
+docker swarm init
+in sottocartella >app\ docker build -t my-node-redis-app .
+docker stack deploy -c stack.yml mystack
+docker service ls
+docker service ps mystack_app
+
+*** docker compose
+docker-compose build
+docker-compose up -d
+docker ps
+docker-compose up -d --scale app=3
+
+Con Compose, anche se avvii 3 repliche, restano tutte sullo stesso host.
+
+Redis continua a essere condiviso, quindi il contatore cresce ugualmente.
+
+Ma non hai bilanciamento automatico → tutte le repliche restano esposte su porta 3000 (entra in conflitto).
+👉 Serve un reverse proxy (es. Nginx o Traefik) per gestire più repliche.
+
+
+Come si ottiene HA
+Ridondanza → avere più repliche della stessa applicazione (es. 3 container Node.js invece di 1).
+Load balancing → distribuire le richieste tra le repliche.
+Failover → se un nodo cade, i servizi vengono riallocati su altri nodi.
+Monitoring e restart → i processi vengono controllati e riavviati automaticamente in caso di errore.

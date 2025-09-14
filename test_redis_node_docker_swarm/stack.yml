@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    image: my-node-redis-app:latest
+    deploy:
+      replicas: 3
+    ports:
+      - "5000:3000"
+    networks:
+      - appnet
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: overlay
