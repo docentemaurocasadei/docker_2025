@@ -28,3 +28,15 @@ Ridondanza → avere più repliche della stessa applicazione (es. 3 container No
 Load balancing → distribuire le richieste tra le repliche.
 Failover → se un nodo cade, i servizi vengono riallocati su altri nodi.
 Monitoring e restart → i processi vengono controllati e riavviati automaticamente in caso di errore.
+
+
+per il test: 
+andare su render.com
+Vai nella dashboard Render → servizio → Settings → Advanced → Docker build & deploy
+Imposta:
+Dockerfile path → test_redis_render_node/Dockerfile
+Build context → test_redis_render_node
+Fai Manual Deploy → Clear build cache & deploy
+
+
+https://docker-2025.onrender.com/

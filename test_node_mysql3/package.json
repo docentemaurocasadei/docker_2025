@@ -1,0 +1,13 @@
+{
+  "name": "test-node-mysql3",
+  "version": "1.0.0",
+  "description": "Esempio Node.js con MySQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3"
+  }
+}

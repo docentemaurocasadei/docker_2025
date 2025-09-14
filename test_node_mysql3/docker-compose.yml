@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  app: 
+    container_name: my_node_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - ss-network
+    environment:
+      - MYSQL_HOST=$MYSQL_HOST
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_PORT=3306
+    depends_on: 
+      - db
+    ports:
+    - 3000:3000
+  db: 
+    container_name: mysql
+    image: mysql:8.0
+    volumes:
+      - mysql_db:/var/lib/mysql
+    networks:
+      - ss-network
+    ports:
+      - 3310:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=testdb
+volumes:
+  mysql_db:
+networks:
+  ss-network:

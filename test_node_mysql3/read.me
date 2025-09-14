@@ -1,0 +1,19 @@
+per compilare: 
+docker compose build
+docker compose up -d
+
+**** per verificare:
+docker ps
+docker-compose logs db
+
+**** per ripartire in caso di errore
+
+docker-compose down -v
+docker-compose up -d --build
+
+se non volessi utilizzare dockercompose:
+docker network create ss-network
+docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=example -e MYSQL_DATABASE=testdb --network ss-network -v mysql_db:/var/lib/mysql --name test_node_mysql3_mysql mysql:8.0
+
+docker build -t test_node_mysql3_img .
+docker run -e MYSQL_HOST=test_node_mysql3_mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=example -e MYSQL_DATABASE=testdb -e MYSQL_PORT=3306 -d --network ss-network -p 3000:3000 --name test_node_mysql3_app test_node_mysql3_img
