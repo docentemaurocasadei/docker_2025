@@ -1,0 +1,35 @@
+myflaskapp/
+ ├─ app.py
+ ├─ db.py
+ ├─ requirements.txt
+ ├─ Dockerfile
+ └─ docker-compose.yml
+
+in locale:
+docker-compose up -d --build
+Flask → http://localhost:5000
+Shops API → http://localhost:5000/shops
+
+Host: db
+Port: 5432
+Database: lookatme
+http://localhost:5000/shops
+
+connessione da dentro PGADMIN_DEFAULT_EMAIL
+vedi env
+Database → lookatme
+****************
+versione VPS utilizzata Aruba su Ubuntu Server 22.04 LTS 64bit
+
+sudo apt update
+sudo apt install -y docker.io docker-compose
+
+docker-compose up -d --build
+
+
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable
+
+docker-compose up -d --build
